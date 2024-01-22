@@ -1,4 +1,4 @@
-package com.htc.gulimall.member;
+package com.htc.gulimall.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class MemberApplication {
+public class GateWayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MemberApplication.class, args);
+        SpringApplication.run(GateWayApplication.class, args);
     }
 }

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: gulimall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        namespace: ee34ee83-0129-40c0-aa78-b0361fa73828
+
+server:
+  port: 88
