@@ -8,6 +8,10 @@ spring:
       config:
         server-addr: localhost:8848
         namespace: ee34ee83-0129-40c0-aa78-b0361fa73828
+        extension-configs:
+          - data-id: gateway.yml
+            group: DEFAULT_GROUP
+            refresh: true
 
 server:
   port: 88

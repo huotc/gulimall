@@ -6,3 +6,6 @@ spring:
       config:
         server-addr: localhost:8848
         namespace: ddf1b9ee-d408-477a-a8c2-849fc7d1c911
+        extension-configs:
+          - data-id: product.yml
+            group: DEFAULT_GROUP
