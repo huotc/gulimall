@@ -59,4 +59,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         baseMapper.deleteBatchIds(list);
     }
 
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        return baseMapper.getCategoryHierarchy(catelogId)
+                .stream()
+                .map(CategoryEntity::getCatId)
+                .toArray(Long[]::new);
+    }
+
 }

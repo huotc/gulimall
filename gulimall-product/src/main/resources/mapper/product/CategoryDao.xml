@@ -15,6 +15,25 @@
         <result property="productUnit" column="product_unit"/>
         <result property="productCount" column="product_count"/>
     </resultMap>
-
-
+    <select id="getCategoryHierarchy" resultMap="categoryMap">
+        WITH RECURSIVE category_hierarchy AS (
+            select cat_id
+                 , name
+                 , parent_cid
+                 , cat_level
+            from pms_category
+            where cat_id = #{catId}
+            union all
+            select pc.cat_id
+                 , pc.name
+                 , pc.parent_cid
+                 , pc.cat_level
+            from pms_category pc
+                     inner join category_hierarchy ch
+                                on pc.cat_id = ch.parent_cid
+        )
+        SELECT cat_id, name, parent_cid, cat_level
+        FROM category_hierarchy
+        ORDER BY cat_level
+    </select>
 </mapper>
