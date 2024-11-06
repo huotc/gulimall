@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 public @interface ListValue {
-    String message() default "{com.atguigu.common.valid.ListValue.message}";
+    String message() default "{com.htc.gulimall.common.valid.ListValue}";
 
     Class<?>[] groups() default { };
 
