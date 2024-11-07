@@ -30,16 +30,15 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Override
     public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
-        if (catelogId == 0) {
-            return this.queryPage(params);
-        }
         String key = (String) params.get("key");
         LambdaQueryWrapper<AttrGroupEntity> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(AttrGroupEntity::getCatelogId, catelogId);
         if (StrUtil.isNotEmpty(key)) {
             wrapper.and((o) -> {
                 o.eq(AttrGroupEntity::getAttrGroupId, key).or().like(AttrGroupEntity::getAttrGroupName, key);
             });
+        }
+        if (catelogId != 0) {
+            wrapper.eq(AttrGroupEntity::getCatelogId, catelogId);
         }
         IPage<AttrGroupEntity> page = this.page(
                 new Query<AttrGroupEntity>().getPage(params),

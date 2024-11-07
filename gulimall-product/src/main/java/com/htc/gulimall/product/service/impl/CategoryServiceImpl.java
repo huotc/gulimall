@@ -1,6 +1,9 @@
 package com.htc.gulimall.product.service.impl;
 
 import cn.hutool.core.util.ObjUtil;
+import cn.hutool.core.util.StrUtil;
+import com.htc.gulimall.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,10 +20,14 @@ import com.htc.gulimall.common.utils.Query;
 import com.htc.gulimall.product.dao.CategoryDao;
 import com.htc.gulimall.product.entity.CategoryEntity;
 import com.htc.gulimall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    private CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -65,6 +72,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 .stream()
                 .map(CategoryEntity::getCatId)
                 .toArray(Long[]::new);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        if (StrUtil.isNotEmpty(category.getName())) {
+            // 同步更新其他关联表中的数据
+            categoryBrandRelationService.updateCateGory(category.getCatId(), category.getName());
+            // TODO 更新其他关联
+        }
     }
 
 }
