@@ -12,6 +12,25 @@
         <result property="icon" column="icon"/>
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
-
-
+    <select id="getNoRelationAttr" resultType="com.htc.gulimall.product.entity.AttrEntity">
+        with attr_catelog_id as (
+            select catelog_id
+            from pms_attr_group
+            where attr_group_id = #{attrgroupId}
+        ), attr_group as (
+            select attr_group_id
+            from pms_attr_group
+            where catelog_id in (select catelog_id from attr_catelog_id)
+        ), relation as (
+            select attr_id
+            from pms_attr_attrgroup_relation
+            where attr_group_id in (select attr_group_id from attr_group)
+        )
+        select *
+        from pms_attr
+        where attr_id not in (select attr_id from relation) and attr_type = #{attrType}
+        <if test="key != null and key != ''">
+            and (attr_id = #{key} or attr_name like '%#{key}%')
+        </if>
+    </select>
 </mapper>
