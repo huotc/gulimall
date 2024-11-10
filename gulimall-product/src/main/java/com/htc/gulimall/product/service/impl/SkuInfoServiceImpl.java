@@ -1,6 +1,9 @@
 package com.htc.gulimall.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -11,6 +14,7 @@ import com.htc.gulimall.common.utils.Query;
 import com.htc.gulimall.product.dao.SkuInfoDao;
 import com.htc.gulimall.product.entity.SkuInfoEntity;
 import com.htc.gulimall.product.service.SkuInfoService;
+import org.springframework.util.StringUtils;
 
 
 @Service("skuInfoService")
@@ -29,6 +33,64 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Override
     public void saveSkuInfo(SkuInfoEntity skuInfoEntity) {
         this.baseMapper.insert(skuInfoEntity);
+    }
+
+    @Override
+    public PageUtils queryPageByCondition(Map<String, Object> params) {
+        LambdaQueryWrapper<SkuInfoEntity> queryWrapper = new LambdaQueryWrapper<>();
+        /**
+         * key:
+         * catelogId: 0
+         * brandId: 0
+         * min: 0
+         * max: 0
+         */
+        String key = (String) params.get("key");
+        if(!StringUtils.isEmpty(key)){
+            queryWrapper.and((wrapper)->{
+                wrapper.eq(SkuInfoEntity::getSkuId,key).or().like(SkuInfoEntity::getSkuName,key);
+            });
+        }
+
+        String catelogId = (String) params.get("catelogId");
+        if(!StringUtils.isEmpty(catelogId)&&!"0".equalsIgnoreCase(catelogId)){
+
+            queryWrapper.eq(SkuInfoEntity::getCatalogId, catelogId);
+        }
+
+        String brandId = (String) params.get("brandId");
+        if(!StringUtils.isEmpty(brandId)&&!"0".equalsIgnoreCase(brandId)){
+            queryWrapper.eq(SkuInfoEntity::getBrandId, brandId);
+        }
+
+        String min = (String) params.get("min");
+        if(!StringUtils.isEmpty(min)){
+            queryWrapper.ge(SkuInfoEntity::getPrice, min);
+        }
+
+        String max = (String) params.get("max");
+
+        if(!StringUtils.isEmpty(max)  ){
+            try{
+                BigDecimal bigDecimal = new BigDecimal(max);
+
+                if(bigDecimal.compareTo(new BigDecimal("0")) > 0){
+                    queryWrapper.le(SkuInfoEntity::getPrice, max);
+                }
+            }catch (Exception e){
+
+            }
+
+        }
+
+
+        IPage<SkuInfoEntity> page = this.page(
+                new Query<SkuInfoEntity>().getPage(params),
+                queryWrapper
+        );
+
+        return new PageUtils(page);
+
     }
 
 }
