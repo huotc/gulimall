@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gulimall-ware
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: 2be01c49-bc86-4f55-ba3d-6ff55a0eef19
+        extension-configs:
+          - data-id: ware.yml
+            group: DEFAULT_GROUP
