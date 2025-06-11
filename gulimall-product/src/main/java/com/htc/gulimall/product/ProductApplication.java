@@ -52,6 +52,36 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @ControllerAdvice
  *  1）、编写异常处理类，使用@ControllerAdvice。
  *  2）、使用@ExceptionHandler标注方法可以处理的异常。
+ *
+ *
+ * 5、模板引擎
+ *  1）、thymeleaf-starter：关闭缓存
+ *  2）、静态资源都放在static文件夹下就可以按照路径直接访问
+ *  3）、页面放在templates下，直接访问
+ *      SpringBoot，访问项目的时候，默认会找index
+ *  4）、页面修改不重启服务器实时更新
+ *      1）、引入dev-tools
+ *      2)、修改完页面 controller shift f9重新自动编译下页面，代码配置，推荐重启
+ *
+ * 6、整合redis
+ *  1）、引入data-redis-starter
+ *  2）、简单配置redis的host等信息
+ *  3）、使用SpringBoot自动配置好的StringRedisTemplate来操作redis
+ *      redis-》Map；存放数据key，数据值value
+ *
+ * 7、整合redisson作为分布式锁等功能框架
+ *      1）、引入依赖
+ *              <dependency>
+ *             <groupId>org.redisson</groupId>
+ *             <artifactId>redisson</artifactId>
+ *             <version>3.12.0</version>
+ *         </dependency>
+ *      2）、配置redisson
+ *              MyRedissonConfig给容器中配置一个RedissonClient实例即可
+ *      3）、使用
+ *          参照文档做。
+ *
+ *
  */
 @EnableFeignClients(basePackages = "com.htc.gulimall.product.feign")
 @EnableDiscoveryClient
