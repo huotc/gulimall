@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gulimall-search
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: 1fb24929-0167-4eca-a46c-ff54081616cf
+        extension-configs:
+          - data-id: search.yml
+            group: DEFAULT_GROUP

@@ -53,5 +53,16 @@ public interface AttrService extends IService<AttrEntity> {
      * @date 2024/11/08
      */
     PageUtils getNoRelationAttr(Map<String, Object> params, Long attrgroupId);
+    
+    /**
+     * 在指定的所有属性集合里面，挑出检索属性
+     *
+     * @param attrIds 属性ID
+     * @return {@link List }<{@link Long }>
+     * @methodName selectSearchAttrIds
+     * @author huotengchao
+     * @date 2025/05/12
+     */
+    List<Long> selectSearchAttrIds(List<Long> attrIds);
 }
 

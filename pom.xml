@@ -22,6 +22,7 @@
         <module>gulimall-common</module>
         <module>gulimall-gateway</module>
         <module>gulimall-third-party</module>
+        <module>gulimall-search</module>
     </modules>
 
     <!-- 统一管理jar包版本 -->
@@ -130,6 +131,13 @@
                 <version>1.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- SpringDoc webmvc -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>2.6.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

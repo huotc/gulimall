@@ -8,6 +8,8 @@
 
 package com.htc.gulimall.common.utils;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 import com.htc.gulimall.common.enums.BizCodeEnum;
 import org.apache.http.HttpStatus;
 
@@ -21,6 +23,20 @@ import java.util.Map;
  */
 public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
+	
+	
+
+	//利用fastjson进行逆转
+	public <T> T getData(TypeReference<T> typeReference){
+		Object data = get("data");//默认是map
+		String s = JSON.toJSONString(data);
+		T t = JSON.parseObject(s, typeReference);
+		return t;
+	}
+	public R setData(Object data){
+		put("data",data);
+		return this;
+	}
 	
 	public R() {
 		put("code", 0);

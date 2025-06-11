@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.htc.gulimall.common.utils.PageUtils;
 import com.htc.gulimall.product.entity.SkuInfoEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +21,16 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
     void saveSkuInfo(SkuInfoEntity skuInfoEntity);
 
     PageUtils queryPageByCondition(Map<String, Object> params);
+    
+    /**
+     * 通过spu id获取skus
+     *
+     * @param spuId SPI ID
+     * @return {@link List }<{@link SkuInfoEntity }>
+     * @methodName getSkusBySpuId
+     * @author huotengchao
+     * @date 2025/05/12
+     */
+    List<SkuInfoEntity> getSkusBySpuId(Long spuId);
 }
 

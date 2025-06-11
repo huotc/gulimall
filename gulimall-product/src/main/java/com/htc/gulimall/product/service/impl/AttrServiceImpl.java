@@ -209,5 +209,10 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         IPage<AttrEntity> page = attrGroupDao.getNoRelationAttr(new Query<AttrEntity>().getPage(params), attrgroupId, key, ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode());
         return new PageUtils(page);
     }
-
+    
+    @Override
+    public List<Long> selectSearchAttrIds(List<Long> attrIds) {
+        return baseMapper.selectSearchAttrIds(attrIds);
+    }
+    
 }
