@@ -4,6 +4,7 @@ import com.htc.gulimall.product.entity.BrandEntity;
 import com.htc.gulimall.product.service.BrandService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,6 +22,15 @@ public class ProductApplicationTests {
     
     @Autowired
     BrandService brandService;
+    
+    @Autowired
+    RedissonClient redissonClient;
+    
+    @Test
+    public void testRedisson() {
+        System.out.println(redissonClient);
+    }
+    
 
     @Test
     public void test() {
